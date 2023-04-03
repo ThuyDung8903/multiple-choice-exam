@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chúc mừng bạn đã vượt qua kì thi!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-200">
+<header class="bg-gray-800 text-white p-4">
+    <h1 class="text-2xl font-bold">Chúc mừng bạn đã vượt qua kì thi!</h1>
+</header>
+
+<main class="container mx-auto mt-6">
+    <div class="flex justify-center mb-6">
+        <div class="w-1/3 bg-white shadow-md rounded-lg p-8">
+            <h2 class="text-xl font-bold mb-4">Tổng điểm số của bạn:</h2>
+            <p id="score" class="text-4xl text-green-600 font-bold">0</p>
+        </div>
+    </div>
+
+    <div class="flex justify-center">
+        <button id="startBtn"
+                class="rounded-full py-4 px-8 bg-blue-500 text-white font-bold text-lg hover:bg-blue-700 transition duration-300 ease-in-out">
+            Bắt đầu
+        </button>
+    </div>
+
+    <div id="animationContainer" class="hidden">
+        <div class="flex justify-center mt-12">
+            <img id="animatedImage" src="https://i.imgur.com/8J1W9yv.gif" alt="Animated celebration image">
+        </div>
+    </div>
+</main>
+
+<script>
+    // Lấy các phần tử DOM cần sử dụng trong JS
+    const scoreElement = document.getElementById("score");
+    const startButton = document.getElementById("startBtn");
+    const animationContainer = document.getElementById("animationContainer");
+    const animatedImage = document.getElementById("animatedImage");
+
+    // Điểm số mặc định ban đầu
+    let score = 0;
+
+    // Cập nhật điểm số trên trang web
+    function updateScore() {
+        scoreElement.textContent = score;
+    }
+
+    // Tạo hiệu ứng animation
+    function animate() {
+        // Hide the start button
+        startButton.classList.add("hidden");
+
+        // Show the animation container
+        animationContainer.classList.remove("hidden");
+
+        // Start the animation
+        animatedImage.classList.add("animate-pulse");
+    }
+
+    // Thiết lập bộ đếm thời gian
+    let timer;
+
+    function startTimer() {
+        let seconds = 0;
+
+        timer = setInterval(() => {
+            seconds++;
+            score += Math.floor(Math.random() * 10) + 1; // tăng điểm số ngẫu nhiên từ 1 đến 10
+
+            updateScore();
+
+            if (seconds === 10) { // sau 10 giây, dừng đếm và kích hoạt hiệu ứng animation
+                clearInterval(timer);
+                animate();
+            }
+        }, 1000);
+    }
+
+    // Đăng ký sự kiện click cho nút "Bắt đầu"
+    startButton.addEventListener("click", startTimer);
+
+</script>
+</body>
+</html>
